@@ -4,28 +4,23 @@ test:
 
 dependencies:
     pre:
-        - pwd
         # Install gcc-arm
         - cd .. && wget "https://launchpad.net/gcc-arm-embedded/4.9/4.9-2015-q3-update/+download/gcc-arm-none-eabi-4_9-2015q3-20150921-linux.tar.bz2"
         - cd .. && tar -xvjf gcc-arm-none-eabi-4_9-2015q3-20150921-linux.tar.bz2
-        #- cd .. && ls
         - ln -s ../gcc-arm-none-eabi-4_9-2015q3/bin/* ../bin/
-        #- ls ../bin/
-        # Install gcc-arm
-        #- sudo add-apt-repository -y ppa:terry.guo/gcc-arm-embedded
-        #- sudo apt-get -y update
-        #- sudo apt-get -y install gcc-arm-none-eabi=4.9.3.2015q3-1precise1
         # Install mbed-cli
         - cd ../ && git clone https://github.com/ARMmbed/mbed-cli.git
         - cd ../mbed-cli && sudo -H pip install -e .
         # Get the sample application
         - cd ../ && git clone git@github.com:ARMmbed/mbed-os-example-tls.git
         # Get mbed-os
-        - cd ../mbed-os-example-tls/tls-client/ && cat mbed-os.lib
         - cd ../mbed-os-example-tls/tls-client && mbed deploy
-        - cd ../mbed-os-example-tls/tls-client/ && cat mbed-os.lib
-        - cd ../mbed-os-example-tls/tls-client/mbed-os/ && mbed update master
-        - cd ../mbed-os-example-tls/tls-client/ && cat mbed-os.lib
+        #
+        # mbed-os master branch is not very stable yet so we do not use it for now.
+        # We control the used mbed-os version by editing the .lib file in
+        # mbed-os-example-tls/tls-client.
+        #- cd ../mbed-os-example-tls/tls-client/mbed-os/ && mbed update master
+        #
         # Import mbedtls current revision
         - ls ../mbed-os-example-tls/tls-client/
         - ls ../mbed-os-example-tls/tls-client/mbed-os/
